@@ -60,4 +60,12 @@ public class GenreLinkedList {
     public void setSize(int size) {
         this.size = size;
     }
+
+    public void printLinkedList() {
+        Game current = head;
+        while (current != null) {
+            System.out.println(current.getTitle());
+            current = current.getNext();
+        }
+    }
 }
