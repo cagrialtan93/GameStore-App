@@ -1,21 +1,25 @@
+import javax.swing.*;
+
 public class GenreLinkedList {
     private Game head;
     private Game tail;
     private int size;
     private String genre;
+    private Game[] games;
 
     public GenreLinkedList(String genre) {
         this.genre = genre;
         this.size = 0;
         this.head = null;
         this.tail = null;
+        this.games = new Game[15];
     }
 
     public void addGame(Game game) {
         if (head == null) {
             head = tail = game;
         } else {
-            head.setNext(game);
+            game.setNext(head);
             head = game;
         }
         size++;
@@ -67,5 +71,18 @@ public class GenreLinkedList {
             System.out.println(current.getTitle());
             current = current.getNext();
         }
+    }
+
+    public Game[] linkedListToArray(){
+        Game current = head;
+        for (int i = 0; i < size; i++) {
+            if (current != null){
+                games[i] = current;
+                current = current.getNext();
+            } else {
+                break;
+            }
+        }
+        return games;
     }
 }

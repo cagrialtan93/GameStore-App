@@ -1,3 +1,5 @@
+import java.nio.file.AccessDeniedException;
+
 public class Main {
     public static void main(String[] args) {
         Game w3 = new Game("Witcher 3", 2015, "Action");
@@ -16,6 +18,11 @@ public class Main {
         gameStore.addGenre("MMO");
         gameStore.addGenre("Adventure");
 
+        gameStore.addGame(w3);
+        gameStore.addGame(gow);
+        gameStore.addGame(cyberpunk);
+        gameStore.addGame(warz);
 
+        new GUIClass(gameStore);
     }
 }

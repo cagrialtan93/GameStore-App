@@ -13,7 +13,18 @@ public class GameStore {
     }
 
     public void addGame(Game game) {
+        if (game.getGenre().matches("^[A-Za-z]+$")) {
+            for (GenreLinkedList genreLinkedList :
+                    genreLinkedLists) {
+                if (genreLinkedList.getGenre().equals(game.getGenre())) {
+                    genreLinkedList.addGame(game);
+                    binarySearchTree.insertGame(game);
+                    System.out.println("success");
+                } else {
 
+                }
+            }
+        }
     }
 
     public void addGenre(String string) {
