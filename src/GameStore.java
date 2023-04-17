@@ -28,12 +28,7 @@ public class GameStore {
     }
 
     public void addGenre(String string) {
-        for (GenreLinkedList genreLinkedList :
-                genreLinkedLists) {
-            if (!genreLinkedList.getGenre().equals(string)) {
-                
-            }
-        }
+        genreLinkedLists.add(new GenreLinkedList(string));
     }
 
     public void displayAllGamesByOrder() {

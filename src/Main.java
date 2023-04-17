@@ -23,6 +23,7 @@ public class Main {
         gameStore.addGame(cyberpunk);
         gameStore.addGame(warz);
 
+
         new GUIClass(gameStore);
     }
 }
