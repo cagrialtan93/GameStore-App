@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2c4836b7-25e7-497a-a249-8780767ef117" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/GameStore.java" afterDir="false" />
+    <list default="true" id="2c4836b7-25e7-497a-a249-8780767ef117" name="Changes" comment="GameStore">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/GenreLinkedList.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GenreLinkedList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/GameStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/GameStore.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -61,12 +60,36 @@
       <workItem from="1681541082416" duration="1857000" />
       <workItem from="1681554140161" duration="711000" />
       <workItem from="1681724684482" duration="1078000" />
-      <workItem from="1681731042441" duration="343000" />
+      <workItem from="1681731042441" duration="2523000" />
+      <workItem from="1681746771494" duration="996000" />
     </task>
+    <task id="LOCAL-00001" summary="GameStore">
+      <created>1681731447965</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1681731447965</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="GameStore" />
+    <option name="LAST_COMMIT_MESSAGE" value="GameStore" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

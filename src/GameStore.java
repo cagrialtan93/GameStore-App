@@ -1,6 +1,12 @@
+import java.util.ArrayList;
+
 public class GameStore {
-    private GenreLinkedList[] genreLinkedLists;
-    private Game game;
+    private ArrayList<GenreLinkedList> genreLinkedLists = new ArrayList<>();
+    private BinarySearchTree binarySearchTree;
+
+    public GameStore() {
+        this.binarySearchTree = new BinarySearchTree();
+    }
 
     public void searchByTitle(String title) {
 
@@ -8,6 +14,10 @@ public class GameStore {
 
     public void addGame(Game game) {
 
+    }
+
+    public void addGenre(String string) {
+        genreLinkedLists.add(new GenreLinkedList(string));
     }
 
     public void displayAllGamesByOrder() {
@@ -24,5 +34,21 @@ public class GameStore {
 
     public void updateGame(Game game) {
 
+    }
+
+    public ArrayList<GenreLinkedList> getGenreLinkedLists() {
+        return genreLinkedLists;
+    }
+
+    public void setGenreLinkedLists(ArrayList<GenreLinkedList> genreLinkedLists) {
+        this.genreLinkedLists = genreLinkedLists;
+    }
+
+    public BinarySearchTree getBinarySearchTree() {
+        return binarySearchTree;
+    }
+
+    public void setBinarySearchTree(BinarySearchTree binarySearchTree) {
+        this.binarySearchTree = binarySearchTree;
     }
 }

@@ -8,19 +8,13 @@ public class Main {
         Game cyberpunk = new Game("Cyberpunk", 2020, "Action");
         Game raft = new Game("Raft", 2017, "Survival");
         Game lol = new Game("League of Legends", 2010, "MMO");
-        BinarySearchTree binarySearchTree = new BinarySearchTree();
-        binarySearchTree.insertGame(w3);
-        binarySearchTree.insertGame(gow);
-        binarySearchTree.insertGame(cs2);
-        binarySearchTree.insertGame(warz);
-        binarySearchTree.insertGame(way);
-        binarySearchTree.insertGame(cyberpunk);
-        binarySearchTree.insertGame(raft);
-        binarySearchTree.insertGame(lol);
-        GenreLinkedList action = new GenreLinkedList("Action");
-        action.addGame(w3);
-        action.addGame(gow);
-        action.printLinkedList();
+
+        GameStore gameStore = new GameStore();
+        gameStore.addGenre("Action");
+        gameStore.addGenre("Survival");
+        gameStore.addGenre("Shooter");
+        gameStore.addGenre("MMO");
+        gameStore.addGenre("Adventure");
 
 
     }
