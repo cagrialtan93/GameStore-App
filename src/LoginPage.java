@@ -34,11 +34,11 @@ public class LoginPage {
 
                 } else if (usernameTextField.getText().equals("cagri") && passwordTextField.getText().equals("cagri")) {
                     jFrame.dispose();
-                    try {
-                        LandingPage landingPage = new LandingPage(gameStore);
-                    } catch (SQLException ex) {
-                        throw new RuntimeException(ex);
-                    }
+//                    try {
+//                        LandingPage landingPage = new LandingPage(gameStore, );
+//                    } catch (SQLException ex) {
+//                        throw new RuntimeException(ex);
+//                    }
                 }
             }
 

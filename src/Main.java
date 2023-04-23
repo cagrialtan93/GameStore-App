@@ -12,8 +12,12 @@ public class Main {
         gameStore.addGenre("MMO");
         gameStore.addGenre("Adventure");
 
-        DatabaseConnect databaseConnect = new DatabaseConnect(gameStore);
+        BinarySearchTree binarySearchTree = null;
+
+        DatabaseConnect databaseConnect = new DatabaseConnect(gameStore, binarySearchTree);
 
         new AddingGamePage();
+        new LandingPage(gameStore);
+        new InfoPage();
     }
 }

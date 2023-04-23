@@ -19,7 +19,7 @@ public class AddingGamePage {
     private DatabaseConnect databaseConnect = new DatabaseConnect();
     private JButton jButtonAdd = new JButton("Add");
     private JButton jButtonBack = new JButton("Back");
-    Boolean textFieldTitle = false;
+    Boolean textFieldTitle;
 
     GridLayout gridLayout = new GridLayout(4, 4);
 
@@ -41,16 +41,15 @@ public class AddingGamePage {
                 if (!textFieldTitle) {
                     System.out.println("Correct first");
                 } else {
-                    game.setTitle(jLabelTitle.getText());
+                    game.setTitle(jTextFieldTitle.getText());
                     game.setReleaseYear(Integer.parseInt(jTextFieldReleaseYear.getText()));
                     game.setGenre(jTextFieldGenre.getText());
                     try {
                         databaseConnect.addGame(game);
-                        new JOptionPane("Successfully added to database.");
+                        JOptionPane.showMessageDialog(jFrame, "Added");
                     } catch (SQLException ex) {
                         throw new RuntimeException("Not happening");
                     }
-
                 }
             }
 
@@ -74,6 +73,34 @@ public class AddingGamePage {
 
             }
         });
+        jButtonBack.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                jFrame.dispose();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+        //TODO write validation code for genre and release year
 
         jTextFieldTitle.addFocusListener(new FocusListener() {
             @Override
@@ -83,12 +110,12 @@ public class AddingGamePage {
 
             @Override
             public void focusLost(FocusEvent e) {
-                if (!jTextFieldTitle.getText().matches("[a-zA-Z0-9]+")) {
-                    jTextFieldTitle.setBorder(BorderFactory.createLineBorder(Color.red));
-                    textFieldTitle = false;
-                } else {
+                if (jTextFieldTitle.getText().matches("[\\p{L}\\d\\s:]+")) {
                     textFieldTitle = true;
                     jTextFieldTitle.setBorder(UIManager.getLookAndFeel().getDefaults().getBorder("TextField.border"));
+                } else {
+                    jTextFieldTitle.setBorder(BorderFactory.createLineBorder(Color.red));
+                    textFieldTitle = false;
                 }
             }
         });
