@@ -10,6 +10,9 @@ public class Game {
         this.genre = genre;
     }
 
+    public Game() {
+    }
+
     public String getTitle() {
         return title;
     }

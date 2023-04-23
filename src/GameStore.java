@@ -3,6 +3,7 @@ import java.util.ArrayList;
 public class GameStore {
     private ArrayList<GenreLinkedList> genreLinkedLists = new ArrayList<>();
     private BinarySearchTree binarySearchTree;
+    private DatabaseConnect databaseConnect;
 
     public GameStore() {
         this.binarySearchTree = new BinarySearchTree();
@@ -19,9 +20,6 @@ public class GameStore {
                 if (genreLinkedList.getGenre().equals(game.getGenre())) {
                     genreLinkedList.addGame(game);
                     binarySearchTree.insertGame(game);
-                    System.out.println("success");
-                } else {
-
                 }
             }
         }
