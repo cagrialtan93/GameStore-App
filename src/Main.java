@@ -6,18 +6,12 @@ import java.sql.SQLException;
 public class Main {
     public static void main(String[] args) throws SQLException {
         GameStore gameStore = new GameStore();
-        gameStore.addGenre("Action");
-        gameStore.addGenre("Survival");
-        gameStore.addGenre("Shooter");
-        gameStore.addGenre("MMO");
-        gameStore.addGenre("Adventure");
 
         BinarySearchTree binarySearchTree = null;
 
         DatabaseConnect databaseConnect = new DatabaseConnect(gameStore, binarySearchTree);
 
-        new AddingGamePage();
-        new LandingPage(gameStore);
-        new InfoPage();
+        new AskingScreen(gameStore);
+
     }
 }

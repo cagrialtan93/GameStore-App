@@ -31,7 +31,7 @@ public class LoginPage {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (usernameTextField.getText().equals("admin") && passwordTextField.getText().equals("admin")) {
-
+                    System.out.println("Hello admin");
                 } else if (usernameTextField.getText().equals("cagri") && passwordTextField.getText().equals("cagri")) {
                     jFrame.dispose();
 //                    try {

@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.plaf.nimbus.State;
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -7,6 +8,7 @@ public class DatabaseConnect {
     private LandingPage landingPage;
     private BinarySearchTree binarySearchTree = new BinarySearchTree();
     private DefaultListModel<Game> gameDefaultListModel = new DefaultListModel<>();
+    private ArrayList<String> genreList = new ArrayList<>();
 
     public DatabaseConnect(GameStore gameStore, BinarySearchTree binarySearchTree) {
         this.gameStore = gameStore;
@@ -54,5 +56,17 @@ public class DatabaseConnect {
         } catch (SQLException e) {
             System.out.println("We already have " + game.getTitle() + " in our database.");
         }
+    }
+
+    public ArrayList<String> getGenreNames() throws SQLException {
+        Connection conn = this.connect();
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT * FROM genres");
+
+        while (rs.next()){
+            genreList.add(rs.getString("genre_name"));
+        }
+
+        return genreList;
     }
 }

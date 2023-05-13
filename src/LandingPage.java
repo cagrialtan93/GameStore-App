@@ -27,6 +27,7 @@ public class LandingPage {
         }
         JList<String> stringJList = new JList<>(stringDefaultListModel);
         stringJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+
         stringJList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
