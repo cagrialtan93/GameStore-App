@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
@@ -15,7 +14,7 @@ public class AddingGamePage {
     private JTextField jTextFieldTitle = new JTextField();
     private JTextField jTextFieldReleaseYear = new JTextField();
     private JTextField jTextFieldGenre = new JTextField();
-    private Game game = new Game();
+    private Game game = new Game("Dota 2", "Strategy", 2002);
     private DatabaseConnect databaseConnect = new DatabaseConnect();
     private JButton jButtonAdd = new JButton("Add");
     private JButton jButtonBack = new JButton("Back");

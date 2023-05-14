@@ -34,7 +34,15 @@ public class BinarySearchTree {
         return gameDefaultListModel;
     }
 
-    public void searchByName(String name){
+    public void inOrder(TreeNode root) {
+        if (root != null) {
+            inOrder(root.getLeftChild());
+            System.out.println(root.getGame().getTitle());
+            inOrder(root.getRightChild());
+        }
+    }
+
+    public void searchByName(String name) {
 
     }
 

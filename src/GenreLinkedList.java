@@ -5,14 +5,14 @@ public class GenreLinkedList {
     private Game tail;
     private int size;
     private String genre;
-    private Game[] games;
+    private String[] games;
 
     public GenreLinkedList(String genre) {
         this.genre = genre;
         this.size = 0;
         this.head = null;
         this.tail = null;
-        this.games = new Game[15];
+        this.games = new String[15]; // TODO this should be arraylist.
     }
 
     public void addGame(Game game) {
@@ -65,19 +65,11 @@ public class GenreLinkedList {
         this.size = size;
     }
 
-    public void printLinkedList() {
-        Game current = head;
-        while (current != null) {
-            System.out.println(current.getTitle());
-            current = current.getNext();
-        }
-    }
-
-    public Game[] linkedListToArray(){
+    public String[] linkedListToArray(){
         Game current = head;
         for (int i = 0; i < size; i++) {
             if (current != null){
-                games[i] = current;
+                games[i] = current.getTitle();
                 current = current.getNext();
             } else {
                 break;

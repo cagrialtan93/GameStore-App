@@ -14,19 +14,20 @@ public class GameStore {
     }
 
     public void addGame(Game game) {
-        if (game.getGenre().matches("^[A-Za-z]+$")) {
-            for (GenreLinkedList genreLinkedList :
-                    genreLinkedLists) {
-                if (genreLinkedList.getGenre().equals(game.getGenre())) {
-                    genreLinkedList.addGame(game);
-                    binarySearchTree.insertGame(game);
-                }
+        for (GenreLinkedList genreLinkedList :
+                genreLinkedLists) {
+            if (genreLinkedList.getGenre().equals(game.getGenre())) {
+                genreLinkedList.addGame(game);
             }
         }
     }
 
-    public void addGenre(String string) {
-        genreLinkedLists.add(new GenreLinkedList(string));
+    public void addGenreList(GenreLinkedList genreLinkedList) {
+        if (!genreLinkedLists.contains(genreLinkedList)) {
+            genreLinkedLists.add(genreLinkedList);
+        } else {
+            System.out.println("The genre list you want to add is already on our system.");
+        }
     }
 
     public void displayAllGamesByOrder() {

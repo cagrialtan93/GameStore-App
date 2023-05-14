@@ -10,12 +10,14 @@ public class DatabaseConnect {
     private DefaultListModel<Game> gameDefaultListModel = new DefaultListModel<>();
     private ArrayList<String> genreList = new ArrayList<>();
 
-    public DatabaseConnect(GameStore gameStore, BinarySearchTree binarySearchTree) {
+    public DatabaseConnect(GameStore gameStore, BinarySearchTree binarySearchTree) throws SQLException {
         this.gameStore = gameStore;
         this.binarySearchTree = binarySearchTree;
+        getGames();
     }
 
     public DatabaseConnect() {
+
     }
 
     private Connection connect() {
@@ -36,10 +38,10 @@ public class DatabaseConnect {
         ResultSet rs = stmt.executeQuery("SELECT * FROM Game");
 
         while (rs.next()) {
-            System.out.println(rs.getString("title"));
             Game game = new Game(rs.getString("title"), rs.getInt("releaseYear"), rs.getString("genre"));
             games.add(game);
             binarySearchTree.insertGame(game);
+            gameStore.addGame(game);
         }
         return binarySearchTree;
     }
@@ -53,20 +55,16 @@ public class DatabaseConnect {
             pstmt.setString(3, game.getGenre());
             pstmt.executeUpdate();
             binarySearchTree.insertGame(game);
+
+            for (GenreLinkedList genreLinkedList :
+                    gameStore.getGenreLinkedLists()) {
+                if (genreLinkedList.getGenre().equals(game.getGenre())) {
+                    genreLinkedList.addGame(game);
+                }
+            }
+
         } catch (SQLException e) {
             System.out.println("We already have " + game.getTitle() + " in our database.");
         }
-    }
-
-    public ArrayList<String> getGenreNames() throws SQLException {
-        Connection conn = this.connect();
-        Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM genres");
-
-        while (rs.next()){
-            genreList.add(rs.getString("genre_name"));
-        }
-
-        return genreList;
     }
 }

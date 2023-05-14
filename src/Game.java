@@ -10,7 +10,7 @@ public class Game {
         this.genre = genre;
     }
 
-    public Game() {
+    public Game(String title, String strategy, int i) {
     }
 
     public String getTitle() {
