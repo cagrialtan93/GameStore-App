@@ -1,7 +1,8 @@
 import javax.swing.*;
-import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
 
@@ -12,24 +13,54 @@ public class GroupedListPage {
     private DefaultListModel<String> stringDefaultListModel = new DefaultListModel<>();
     private JList<String> jList = new JList<>(stringDefaultListModel);
     private JPanel jPanel = new JPanel();
-
-    JFrame frame = new JFrame();
+    private JFrame frame = new JFrame();
+    private JButton jButtonBack = new JButton("Back");
+    private JButton jButtonQuit = new JButton("Quit");
+    private JPanel jPanelForButtons = new JPanel(new FlowLayout());
 
     public GroupedListPage(GameStore gameStore) throws SQLException {
-        jPanel.setLayout(new GridLayout(2, 1));
+        jPanel.setLayout(new BorderLayout());
+        jPanelForButtons.add(jButtonBack);
+        jButtonBack.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        jPanelForButtons.add(jButtonQuit);
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
         frame.setSize(300, 600);
-        frame.setResizable(false);
 
         for (int i = 0; i < gameStore.getGenreLinkedLists().size(); i++) {
             dropDownMenu.addItem(gameStore.getGenreLinkedLists().get(i).getGenre());
         }
 
-        dropDownMenu.setMaximumSize(new Dimension(300,30));
-        jPanel.add(dropDownMenu);
-        jPanel.add(jList);
+
+        jPanel.add(dropDownMenu, BorderLayout.NORTH);
+        jPanel.add(jList, BorderLayout.CENTER);
+        jPanel.add(jPanelForButtons, BorderLayout.SOUTH);
         dropDownMenu.addActionListener(new Action() {
             @Override
             public Object getValue(String key) {
@@ -78,7 +109,6 @@ public class GroupedListPage {
                 }
             }
         });
-
 
         //TODO set the default selection as 'Select genre'.
 

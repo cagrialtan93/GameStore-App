@@ -67,4 +67,21 @@ public class DatabaseConnect {
             System.out.println("We already have " + game.getTitle() + " in our database.");
         }
     }
+
+    public boolean checkIfInDatabase(String gameName) throws SQLException {
+        Boolean isIt = null;
+        ArrayList<Game> games = new ArrayList<>();
+        Connection conn = this.connect();
+        Statement stmt = conn.createStatement();
+        ResultSet rs = stmt.executeQuery("SELECT title FROM Game");
+
+        while (rs.next()) {
+            if (rs.equals(gameName)) {
+                isIt = true;
+            } else {
+                isIt = false;
+            }
+        }
+        return isIt;
+    }
 }

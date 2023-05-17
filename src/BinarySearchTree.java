@@ -1,6 +1,7 @@
 import com.sun.source.tree.Tree;
 
 import javax.swing.*;
+import java.util.ArrayList;
 
 public class BinarySearchTree {
     private TreeNode root;
@@ -34,17 +35,62 @@ public class BinarySearchTree {
         return gameDefaultListModel;
     }
 
-    public void inOrder(TreeNode root) {
+    public TreeNode search(TreeNode root, String gameName) {
+        if (root == null || root.getGame().getTitle().equals(gameName))
+            return root;
+
+        if (root.getGame().getTitle().compareTo(gameName) > 0)
+            return search(root.getLeftChild(), gameName);
+
+        return search(root.getRightChild(), gameName);
+    }
+
+    public ArrayList<String> returnSimilars(TreeNode root, String string, ArrayList<String> treeNodes) {
         if (root != null) {
-            inOrder(root.getLeftChild());
-            System.out.println(root.getGame().getTitle());
-            inOrder(root.getRightChild());
+            // If the node's value contains the search key, add it to the list
+            if (root.getGame().getTitle().contains(string)) {
+                treeNodes.add(root.getGame().getTitle());
+            }
+
+            // If the node's value is lexicographically less than the search key,
+            // search the right subtree (which contains larger values)
+            if (root.getGame().getTitle().compareTo(string) < 0) {
+                returnSimilars(root.getRightChild(), string, treeNodes);
+            }
+
+            // If the node's value is lexicographically greater than or equal to the search key,
+            // search the left subtree (which contains smaller values) and the right subtree
+            // (since there may be more matches in the larger values)
+            if (root.getGame().getTitle().compareTo(string) >= 0) {
+                returnSimilars(root.getLeftChild(), string, treeNodes);
+                returnSimilars(root.getRightChild(), string, treeNodes);
+            }
         }
+        return treeNodes;
     }
 
-    public void searchByName(String name) {
-
+    public DefaultListModel<String> addItemsToListModelFromArrayList(DefaultListModel<String> defaultListModel, ArrayList<String> arrayList) {
+        defaultListModel.clear();
+        defaultListModel.addAll(arrayList);
+        return defaultListModel;
     }
+
+
+    public ArrayList<TreeNode> inOrder(TreeNode root, String string) {
+        ArrayList<TreeNode> treeNodes = new ArrayList<>();
+
+        if (root != null) {
+            inOrder(root.getLeftChild(), string);
+            System.out.println(root.getGame().getTitle());
+            if (root.getGame().getTitle().toLowerCase().contains(string.toLowerCase())) {
+                treeNodes.add(root);
+            }
+            inOrder(root.getRightChild(), string);
+        }
+
+        return treeNodes;
+    }
+
 
     public TreeNode getRoot() {
         return root;

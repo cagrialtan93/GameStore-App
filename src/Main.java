@@ -1,8 +1,8 @@
+import com.sun.source.tree.Tree;
+
 import java.awt.*;
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Main {
@@ -12,8 +12,14 @@ public class Main {
         createGenreLists(gameStore);
         DatabaseConnect databaseConnect = new DatabaseConnect(gameStore, binarySearchTree);
 
-        new GroupedListPage(gameStore);
-        
+        new AskingScreen(gameStore, binarySearchTree);
+
+        ArrayList<TreeNode> treeNodes = new ArrayList<>();
+
+//        for (TreeNode treeNode :
+//                binarySearchTree.returnSimilars(binarySearchTree.getRoot(), "Dota", treeNodes)) {
+//            System.out.println(treeNode.getGame().getTitle());
+//        }
     }
 
     public static void createGenreLists(GameStore gameStore) {

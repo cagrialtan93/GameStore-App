@@ -13,7 +13,7 @@ public class LoginPage {
     JButton jButtonLogIn = new JButton("Login");
     JButton jButtonQuit = new JButton("Quit");
 
-    public LoginPage(GameStore gameStore) {
+    public LoginPage(GameStore gameStore, BinarySearchTree binarySearchTree) {
         jFrame.setLayout(new GridLayout(3, 2));
 
         jFrame.add(nameLabel);
@@ -33,12 +33,7 @@ public class LoginPage {
                 if (usernameTextField.getText().equals("admin") && passwordTextField.getText().equals("admin")) {
                     System.out.println("Hello admin");
                 } else if (usernameTextField.getText().equals("cagri") && passwordTextField.getText().equals("cagri")) {
-                    jFrame.dispose();
-//                    try {
-//                        LandingPage landingPage = new LandingPage(gameStore, );
-//                    } catch (SQLException ex) {
-//                        throw new RuntimeException(ex);
-//                    }
+                    new AskingScreen(gameStore, binarySearchTree);
                 }
             }
 

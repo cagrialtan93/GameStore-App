@@ -13,30 +13,36 @@ public class LandingPage {
     private DefaultListModel<Game> gameDefaultListModel = new DefaultListModel<>();
     private DefaultListModel<String> stringDefaultListModel = new DefaultListModel<>();
     private BinarySearchTree binarySearchTree = databaseConnect.getGames();
+    private JButton jButtonBack = new JButton("Back");
+    private JButton jButtonQuit = new JButton("Quit");
+
 
     public LandingPage(GameStore gameStore) throws SQLException {
         this.gameStore = gameStore;
 
+
         JFrame jFrame = new JFrame("Online Game Store");
-        JScrollPane jScrollPane = new JScrollPane();
+
+        JPanel jPanelFlow = new JPanel(new FlowLayout());
+        jPanelFlow.setMaximumSize(new Dimension(400, 30));
+        jPanelFlow.add(jButtonBack);
+        jPanelFlow.add(jButtonQuit);
 
         JList<Game> jList = new JList<>(binarySearchTree.inOrder(binarySearchTree.getRoot(), gameDefaultListModel)); // TODO get this properly
+        JScrollPane jScrollPane = new JScrollPane(jList);
 
         for (int i = 0; i < gameDefaultListModel.size(); i++) {
             stringDefaultListModel.addElement(gameDefaultListModel.get(i).getTitle());
         }
         JList<String> stringJList = new JList<>(stringDefaultListModel);
-        stringJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+        stringJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         stringJList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()){
-                    System.out.println();
-                }
+
             }
         });
-
         stringJList.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -70,7 +76,6 @@ public class LandingPage {
 
             }
         });
-
         jList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
@@ -83,8 +88,36 @@ public class LandingPage {
                 }
             }
         });
+        jButtonBack.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                jFrame.dispose();
+            }
 
-        jFrame.add(stringJList);
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+        jFrame.add(jScrollPane, BorderLayout.CENTER);
+        jFrame.add(jPanelFlow, BorderLayout.SOUTH);
+
         jFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         jFrame.setLocationRelativeTo(null);
         jFrame.setSize(400, 400);

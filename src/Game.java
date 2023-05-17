@@ -44,4 +44,13 @@ public class Game {
     public void setNext(Game next) {
         this.next = next;
     }
+
+    @Override
+    public String toString() {
+        return "Game{" +
+                "title='" + title + '\'' +
+                ", releaseYear=" + releaseYear +
+                ", genre='" + genre + '\'' +
+                '}';
+    }
 }
