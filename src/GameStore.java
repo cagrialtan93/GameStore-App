@@ -4,6 +4,7 @@ public class GameStore {
     private ArrayList<GenreLinkedList> genreLinkedLists = new ArrayList<>();
     private BinarySearchTree binarySearchTree;
     private DatabaseConnect databaseConnect;
+    private ArrayList<Game> games = new ArrayList<>();
 
     public GameStore() {
         this.binarySearchTree = new BinarySearchTree();

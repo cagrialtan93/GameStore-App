@@ -1,13 +1,14 @@
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.beans.PropertyChangeListener;
 import java.sql.SQLException;
 
 public class GroupedListPage {
-    private DatabaseConnect databaseConnect = new DatabaseConnect();
     private DefaultComboBoxModel<String> model;
     private JComboBox<String> dropDownMenu = new JComboBox<>();
     private DefaultListModel<String> stringDefaultListModel = new DefaultListModel<>();
@@ -18,7 +19,7 @@ public class GroupedListPage {
     private JButton jButtonQuit = new JButton("Quit");
     private JPanel jPanelForButtons = new JPanel(new FlowLayout());
 
-    public GroupedListPage(GameStore gameStore) throws SQLException {
+    public GroupedListPage(GameStore gameStore, User user, DatabaseConnect databaseConnect) throws SQLException {
         jPanel.setLayout(new BorderLayout());
         jPanelForButtons.add(jButtonBack);
         jButtonBack.addMouseListener(new MouseListener() {
@@ -57,6 +58,22 @@ public class GroupedListPage {
             dropDownMenu.addItem(gameStore.getGenreLinkedLists().get(i).getGenre());
         }
 
+        jList.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                Game game = null;
+                if (e.getClickCount() == 2) {
+                    String selectedItem = jList.getSelectedValue();
+                    try {
+                        game = databaseConnect.checkIfInDatabase(selectedItem);
+                        new GameProfile(game, user, databaseConnect);
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                }
+
+            }
+        });
 
         jPanel.add(dropDownMenu, BorderLayout.NORTH);
         jPanel.add(jList, BorderLayout.CENTER);
@@ -110,7 +127,7 @@ public class GroupedListPage {
             }
         });
 
-        //TODO set the default selection as 'Select genre'.
+        // TODO set the default selection as 'Select genre'.
 
         frame.add(jPanel);
         frame.show();

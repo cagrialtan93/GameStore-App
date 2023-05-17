@@ -4,16 +4,19 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.sql.SQLException;
 
-public class LoginPage {
+public class SignIn {
     JFrame jFrame = new JFrame();
     JLabel nameLabel = new JLabel("Username");
     JTextField usernameTextField = new JTextField();
     JLabel passwordLabel = new JLabel("Password");
-    JTextField passwordTextField = new JTextField();
+    JPasswordField passwordTextField = new JPasswordField();
     JButton jButtonLogIn = new JButton("Login");
-    JButton jButtonQuit = new JButton("Quit");
+    JButton jButtonBack = new JButton("Back");
+    User user = new User();
 
-    public LoginPage(GameStore gameStore, BinarySearchTree binarySearchTree) {
+    public SignIn(GameStore gameStore, BinarySearchTree binarySearchTree, DatabaseConnect databaseConnect) {
+        nameLabel.setHorizontalAlignment(0);
+        passwordLabel.setHorizontalAlignment(0);
         jFrame.setLayout(new GridLayout(3, 2));
 
         jFrame.add(nameLabel);
@@ -21,19 +24,25 @@ public class LoginPage {
         jFrame.add(passwordLabel);
         jFrame.add(passwordTextField);
         jFrame.add(jButtonLogIn);
-        jFrame.add(jButtonQuit);
+        jFrame.add(jButtonBack);
         jFrame.setLocationRelativeTo(null);
         jFrame.setSize(200, 120);
         jFrame.show();
 
-
         jButtonLogIn.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (usernameTextField.getText().equals("admin") && passwordTextField.getText().equals("admin")) {
-                    System.out.println("Hello admin");
-                } else if (usernameTextField.getText().equals("cagri") && passwordTextField.getText().equals("cagri")) {
-                    new AskingScreen(gameStore, binarySearchTree);
+                if (databaseConnect.checkCredentials(getUsernameTextField().getText(), getPasswordTextField().getText()) != null) {
+                    user = databaseConnect.checkCredentials(getUsernameTextField().getText(), getPasswordTextField().getText());
+                    try {
+                        new Profile(user, databaseConnect, gameStore, binarySearchTree);
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    jFrame.dispose();
+                } else {
+                    //TODO if user is not in the database.
+                    System.out.println("Wrong credentials!");
                 }
             }
 
@@ -57,7 +66,7 @@ public class LoginPage {
 
             }
         });
-        jButtonQuit.addMouseListener(new MouseListener() {
+        jButtonBack.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 jFrame.dispose();
@@ -83,5 +92,21 @@ public class LoginPage {
 
             }
         });
+    }
+
+    public JTextField getUsernameTextField() {
+        return usernameTextField;
+    }
+
+    public void setUsernameTextField(JTextField usernameTextField) {
+        this.usernameTextField = usernameTextField;
+    }
+
+    public JTextField getPasswordTextField() {
+        return passwordTextField;
+    }
+
+    public void setPasswordTextField(JPasswordField passwordTextField) {
+        this.passwordTextField = passwordTextField;
     }
 }

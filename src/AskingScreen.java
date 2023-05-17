@@ -14,19 +14,24 @@ public class AskingScreen {
     JButton jButtonList = new JButton("List");
     JButton jButtonGrouped = new JButton("Grouped by Genre");
     JButton jButtonSearch = new JButton("Search by name");
+    JButton jButtonBackToProfile = new JButton("Back To Profile");
+    JLabel jLabelWelcomeUser = new JLabel();
 
-    public AskingScreen(GameStore gameStore, BinarySearchTree binarySearchTree) {
-        frame.setLayout(new GridLayout(2, 1));
+    public AskingScreen(GameStore gameStore, BinarySearchTree binarySearchTree, User user, DatabaseConnect databaseConnect) {
+        frame.setLayout(new GridLayout(4, 1));
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
-        frame.setSize(400, 100);
-        frame.setResizable(false);
+        frame.setSize(600, 160);
+
+
+        jLabelWelcomeUser.setHorizontalAlignment(0);
+        jLabelWelcomeUser.setText("Welcome " + user.getUsername());
 
         jButtonList.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    new LandingPage(gameStore);
+                    new LandingPage(gameStore, user);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -56,7 +61,7 @@ public class AskingScreen {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    new GroupedListPage(gameStore);
+                    new GroupedListPage(gameStore, user, databaseConnect);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -86,7 +91,38 @@ public class AskingScreen {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    new SearchBox(gameStore, binarySearchTree);
+                    new SearchBox(gameStore, binarySearchTree, user);
+                } catch (SQLException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        jButtonBackToProfile.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                frame.dispose();
+                try {
+                    new Profile(user, databaseConnect, gameStore, binarySearchTree);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -117,7 +153,9 @@ public class AskingScreen {
         jPanel2.add(jButtonList);
         jPanel2.add(jButtonGrouped);
         jPanel2.add(jButtonSearch);
+        jPanel2.add(jButtonBackToProfile);
 
+        frame.add(jLabelWelcomeUser);
         frame.add(jPanel1);
         frame.add(jPanel2);
         frame.show();

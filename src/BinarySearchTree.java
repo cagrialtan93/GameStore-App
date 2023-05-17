@@ -26,10 +26,10 @@ public class BinarySearchTree {
         }
     }
 
-    public DefaultListModel inOrder(TreeNode root, DefaultListModel<Game> gameDefaultListModel) {
+    public DefaultListModel inOrder(TreeNode root, DefaultListModel<String> gameDefaultListModel) {
         if (root != null) {
             inOrder(root.getLeftChild(), gameDefaultListModel);
-            gameDefaultListModel.addElement(root.getGame());
+            gameDefaultListModel.addElement(root.getGame().getTitle());
             inOrder(root.getRightChild(), gameDefaultListModel);
         }
         return gameDefaultListModel;
@@ -75,7 +75,6 @@ public class BinarySearchTree {
         return defaultListModel;
     }
 
-
     public ArrayList<TreeNode> inOrder(TreeNode root, String string) {
         ArrayList<TreeNode> treeNodes = new ArrayList<>();
 
@@ -90,7 +89,6 @@ public class BinarySearchTree {
 
         return treeNodes;
     }
-
 
     public TreeNode getRoot() {
         return root;

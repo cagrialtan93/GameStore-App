@@ -1,16 +1,19 @@
 public class Game {
+    private int gameid;
+    private double price;
     private String title;
     private int releaseYear;
     private String genre;
     private Game next;
+    private String publisher;
 
-    public Game(String title, int releaseYear, String genre) {
+    public Game(int gameid, double price, String title, int releaseYear, String genre, String publisher) {
+        this.gameid = gameid;
+        this.price = price;
         this.title = title;
         this.releaseYear = releaseYear;
         this.genre = genre;
-    }
-
-    public Game(String title, String strategy, int i) {
+        this.publisher = publisher;
     }
 
     public String getTitle() {
@@ -52,5 +55,29 @@ public class Game {
                 ", releaseYear=" + releaseYear +
                 ", genre='" + genre + '\'' +
                 '}';
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public String getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    public int getGameid() {
+        return gameid;
+    }
+
+    public void setGameid(int gameid) {
+        this.gameid = gameid;
     }
 }
