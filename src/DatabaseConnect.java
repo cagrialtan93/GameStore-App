@@ -53,7 +53,70 @@ public class DatabaseConnect {
         }
         return user;  // Login credentials are valid
     }
-    public void createUser(User user) {
+
+    public Boolean checkUsername(String username){
+        Boolean isOk = null;
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+
+            String query = "SELECT * FROM account WHERE username = '" + username + "'";
+            ResultSet rs = stmt.executeQuery(query);
+
+            // Check if a matching record was found
+            if (rs.next()) {
+                isOk = false;
+            } else {
+                isOk = true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return isOk;
+    }
+    public Boolean checkEmail(String email){
+        Boolean isOk = null;
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+
+            String query = "SELECT * FROM account WHERE email = '" + email + "'";
+            ResultSet rs = stmt.executeQuery(query);
+
+            // Check if a matching record was found
+            if (rs.next()) {
+                isOk = false;
+            } else {
+                isOk = true;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return isOk;
+    }
+
+    public User checkCredentials(String username, String password, String email){
+        User user = null;
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+
+            String query = "SELECT * FROM account WHERE username = '" + username + "' AND passoword = '" + password + "' AND email = '" + email + "'";
+            ResultSet rs = stmt.executeQuery(query);
+
+            // Check if a matching record was found
+            if (rs.next()) {
+                user = new User();
+                user = new User(rs.getInt("userid") ,rs.getString("username"), rs.getString("passoword"), rs.getString("email"));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return user;  // Login credentials are valid
+
+    }
+    public boolean createUser(User user) {
+        Boolean isCreated = null;
         String sql = "insert into account(username, passoword, email) VALUES (?,?,?)";
 
         try (Connection conn = this.connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -61,22 +124,19 @@ public class DatabaseConnect {
             pstmt.setString(2, user.getPassword());
             pstmt.setString(3, user.getEmail());
             pstmt.executeUpdate();
-            System.out.println("user created.");
-
+            isCreated = true;
         } catch (SQLException e) {
-            System.out.println("We already have in our database.");
+            isCreated = false;
         }
-
+        return isCreated;
     }
     public BinarySearchTree getGames() throws SQLException {
-        ArrayList<Game> games = new ArrayList<>();
         Connection conn = this.connect();
         Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM games ORDER BY title ASC");
+        ResultSet rs = stmt.executeQuery("SELECT * FROM games_ ORDER BY title ASC");
 
         while (rs.next()) {
             Game game = new Game(rs.getInt("gameid") ,rs.getDouble("price"), rs.getString("title"), rs.getInt("releaseYear"), rs.getString("genre"), rs.getString("publisher"));
-            games.add(game);
             binarySearchTree.insertGame(game);
             gameStore.addGame(game);
         }
@@ -106,28 +166,29 @@ public class DatabaseConnect {
             System.out.println("We already have " + game.getTitle() + " in our database.");
         }
     }
-    public void addGamesBought(User user, Game game){
+    public Boolean addGamesBought(User user, Game game){
+        Boolean haveGame = null;
         String sql = "insert into games_bought(userid, gamesid) VALUES (?,?)";
         try (Connection conn = this.connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
             if (!checkGamesBoughtIfItsIn(user.getUserid(), game.getGameid())){
                 pstmt.setInt(1, user.getUserid());
                 pstmt.setInt(2, game.getGameid());
                 pstmt.executeUpdate();
-                System.out.println("nice");
+                haveGame = true;
             } else {
-                System.out.println("You already have that game.");
+                haveGame = false;
             }
         } catch (SQLException e) {
             System.out.println("You already have bought that game.");
         }
-
+        return haveGame;
     }
     public Game checkIfInDatabase(String gameName) throws SQLException {
         Game game = null;
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
 
-            String query = "SELECT * FROM games WHERE title = '" + gameName + "'";
+            String query = "SELECT * FROM games_ WHERE title = '" + gameName + "'";
             ResultSet rs = stmt.executeQuery(query);
 
             // Check if a matching record was found

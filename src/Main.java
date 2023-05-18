@@ -13,20 +13,22 @@ public class Main {
         new Sign(gameStore, binarySearchTree, databaseConnect);
     }
 
-    public static void createGenreLists(GameStore gameStore) { 
-        GenreLinkedList action = new GenreLinkedList("Action");
+    public static void createGenreLists(GameStore gameStore) {
+        GenreLinkedList genreLinkedList = new GenreLinkedList("Select genre", gameStore);
+        gameStore.addGenreList(genreLinkedList);
+        GenreLinkedList action = new GenreLinkedList("Action",gameStore);
         gameStore.addGenreList(action);
-        GenreLinkedList shooter = new GenreLinkedList("Shooter");
+        GenreLinkedList shooter = new GenreLinkedList("Shooter",gameStore);
         gameStore.addGenreList(shooter);
-        GenreLinkedList strategy = new GenreLinkedList("Strategy");
+        GenreLinkedList strategy = new GenreLinkedList("Strategy",gameStore);
         gameStore.addGenreList(strategy);
-        GenreLinkedList simulation = new GenreLinkedList("Simulation");
+        GenreLinkedList simulation = new GenreLinkedList("Simulation",gameStore);
         gameStore.addGenreList(simulation);
-        GenreLinkedList sports = new GenreLinkedList("Sports");
+        GenreLinkedList sports = new GenreLinkedList("Sports",gameStore);
         gameStore.addGenreList(sports);
-        GenreLinkedList racing = new GenreLinkedList("Racing");
+        GenreLinkedList racing = new GenreLinkedList("Racing",gameStore);
         gameStore.addGenreList(racing);
-        GenreLinkedList horror = new GenreLinkedList("Horror");
+        GenreLinkedList horror = new GenreLinkedList("Horror",gameStore);
         gameStore.addGenreList(horror);
     }
 }

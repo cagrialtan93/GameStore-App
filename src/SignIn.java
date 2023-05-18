@@ -41,8 +41,11 @@ public class SignIn {
                     }
                     jFrame.dispose();
                 } else {
-                    //TODO if user is not in the database.
-                    System.out.println("Wrong credentials!");
+                    if (getPasswordTextField().getText().equals("") || getUsernameTextField().getText().equals("")) {
+                        JOptionPane.showMessageDialog(jFrame, "Username or password can't be empty!", "Alert", JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(jFrame, "Wrong username or password!", "Alert", JOptionPane.WARNING_MESSAGE);
+                    }
                 }
             }
 

@@ -12,6 +12,7 @@ public class Sign {
     JButton jButtonSignUp = new JButton("Sign Up");
     public Sign(GameStore gameStore, BinarySearchTree binarySearchTree, DatabaseConnect databaseConnect) {
         jFrame.setLayout(new GridLayout(2,1));
+        jFrame.setDefaultCloseOperation(3);
 
         jSecondPanel.setLayout(new FlowLayout());
         jButtonSignIn.addMouseListener(new MouseListener() {

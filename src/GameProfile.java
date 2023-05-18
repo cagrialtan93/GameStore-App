@@ -24,7 +24,7 @@ public class GameProfile {
 
     public GameProfile(Game game, User user, DatabaseConnect databaseConnect) {
         jFrame.setLayout(new BorderLayout());
-        jPanel.setLayout(new GridLayout(5,2));
+        jPanel.setLayout(new GridLayout(5, 2));
         jPanelButtons.setLayout(new FlowLayout());
 
         jPanel.add(jLabelTitle);
@@ -48,11 +48,42 @@ public class GameProfile {
         jPanel.add(getjLabelPrice);
 
         jPanelButtons.add(jButtonBack);
+        jButtonBack.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                jFrame.dispose();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
 
         jButtonBuy.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                databaseConnect.addGamesBought(user, game);
+                if (databaseConnect.addGamesBought(user, game)) {
+                    JOptionPane.showMessageDialog(jFrame, "Game successfully bought and added to your account.Let's play!");
+                    jFrame.dispose();
+                } else {
+                    JOptionPane.showMessageDialog(jFrame,"You already have that game in your library.","Alert",JOptionPane.WARNING_MESSAGE);
+                }
             }
 
             @Override
@@ -80,7 +111,7 @@ public class GameProfile {
         jFrame.add(jPanel, BorderLayout.CENTER);
         jFrame.add(jPanelButtons, BorderLayout.SOUTH);
 
-        jFrame.setSize(250,225);
+        jFrame.setSize(250, 225);
         jFrame.setLocationRelativeTo(null);
         jFrame.setVisible(true);
     }

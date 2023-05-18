@@ -60,15 +60,23 @@ public class SearchBox extends JFrame {
         searchButton.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (false) { // databaseConnect.checkIfInDatabase(getSearchItem())
-                    System.out.println("added");
-                } else {
-                    treeNodes.clear();
-                    if (searchField.getText().equals("")) {
+                if (!getSearchItem().isEmpty()) {
+                    try {
+                        if (databaseConnect.checkIfInDatabase(getSearchItem()) != null) {
+                            System.out.println("added");
+                        } else {
+                            treeNodes.clear();
+                            if (searchField.getText().equals("")) {
 
-                    } else {
-                        defaultListModel = binarySearchTree.addItemsToListModelFromArrayList(defaultListModel, binarySearchTree.returnSimilars(binarySearchTree.getRoot(), getSearchItem().substring(0, 1).toUpperCase() + getSearchItem().substring(1), treeNodes));
+                            } else {
+                                defaultListModel = binarySearchTree.addItemsToListModelFromArrayList(defaultListModel, binarySearchTree.returnSimilars(binarySearchTree.getRoot(), getSearchItem().substring(0, 1).toUpperCase() + getSearchItem().substring(1), treeNodes));
+                            }
+                        }
+                    } catch (SQLException ex) {
+                        throw new RuntimeException(ex);
                     }
+                } else {
+                    defaultListModel = binarySearchTree.inOrder(binarySearchTree.getRoot(), defaultListModel);
                 }
                 setSize(375, 200);
                 jScrollPane.show();

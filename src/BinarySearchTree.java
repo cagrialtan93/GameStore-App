@@ -105,4 +105,13 @@ public class BinarySearchTree {
     public void setSize(int size) {
         this.size = size;
     }
+
+    public void inOrder(TreeNode treeNode) {
+        if (root == null) {
+            return;
+        }
+        inOrder(root.getLeftChild());
+        System.out.print(root.getGame().getTitle() + " ");
+        inOrder(root.getRightChild());
+    }
 }

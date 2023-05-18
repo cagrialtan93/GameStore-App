@@ -10,10 +10,6 @@ public class GameStore {
         this.binarySearchTree = new BinarySearchTree();
     }
 
-    public void searchByTitle(String title) {
-
-    }
-
     public void addGame(Game game) {
         for (GenreLinkedList genreLinkedList :
                 genreLinkedLists) {
@@ -29,22 +25,6 @@ public class GameStore {
         } else {
             System.out.println("The genre list you want to add is already on our system.");
         }
-    }
-
-    public void displayAllGamesByOrder() {
-
-    }
-
-    public void displayGamesByGenreSelected(String genre) {
-
-    }
-
-    public void removeGame(Game game) {
-
-    }
-
-    public void updateGame(Game game) {
-
     }
 
     public ArrayList<GenreLinkedList> getGenreLinkedLists() {

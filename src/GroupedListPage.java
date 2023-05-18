@@ -48,6 +48,33 @@ public class GroupedListPage {
 
             }
         });
+        jButtonQuit.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                System.exit(0);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
         jPanelForButtons.add(jButtonQuit);
 
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -114,13 +141,18 @@ public class GroupedListPage {
             @Override
             public void actionPerformed(ActionEvent e) {
                 stringDefaultListModel.clear();
+                Game treeNode = null;
                 String selectedItem = (String) dropDownMenu.getSelectedItem();
 
                 for (GenreLinkedList genreLinkedList :
                         gameStore.getGenreLinkedLists()) {
+                    treeNode = genreLinkedList.getHead();
                     if (genreLinkedList.getGenre().equals(selectedItem)) {
-                        for (int i = 0; i < genreLinkedList.linkedListToArray().length; i++) {
-                            stringDefaultListModel.addElement(genreLinkedList.linkedListToArray()[i]);
+                        for (int i = 0; i < genreLinkedList.getSize(); i++) {
+                            if (treeNode.getNext() != null){
+                                stringDefaultListModel.addElement(treeNode.getTitle());
+                                treeNode = treeNode.getNext();
+                            }
                         }
                     }
                 }

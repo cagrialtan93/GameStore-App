@@ -13,7 +13,7 @@ public class AskingScreen {
     JLabel jLabel = new JLabel("How would you like to see our games?");
     JButton jButtonList = new JButton("List");
     JButton jButtonGrouped = new JButton("Grouped by Genre");
-    JButton jButtonSearch = new JButton("Search by name");
+    JButton jButtonSearch = new JButton("Search by Name");
     JButton jButtonBackToProfile = new JButton("Back To Profile");
     JLabel jLabelWelcomeUser = new JLabel();
 
@@ -31,7 +31,7 @@ public class AskingScreen {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    new LandingPage(gameStore, user);
+                    new LandingPage(gameStore, user, binarySearchTree, databaseConnect);
                 } catch (SQLException ex) {
                     throw new RuntimeException(ex);
                 }
