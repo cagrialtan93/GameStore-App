@@ -48,7 +48,11 @@ public class GameProfile {
         jPanelSecond.add(getjLabelPublisher);
 
         jPanel.add(jLabelPrice);
-        getjLabelPrice.setText(String.valueOf(game.getPrice()) + " ₺");
+        if (game.getPrice() == 0){
+            getjLabelPrice.setText("Free to Play");
+        } else {
+            getjLabelPrice.setText(String.valueOf(game.getPrice()));
+        }
         jPanelSecond.add(getjLabelPrice);
 
         jPanelButtons.add(jButtonBack);

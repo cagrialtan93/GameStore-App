@@ -3,14 +3,7 @@ import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) throws SQLException {
-        BinarySearchTree binarySearchTree = new BinarySearchTree();
-        GameStore gameStore = new GameStore();
-        createGenreLists(gameStore);
-        DatabaseConnect databaseConnect = new DatabaseConnect(gameStore, binarySearchTree);
-
-        ArrayList<TreeNode> treeNodes = new ArrayList<>();
-
-        new Sign(gameStore, binarySearchTree, databaseConnect);
+        starting();
     }
 
     public static void createGenreLists(GameStore gameStore) {
@@ -30,5 +23,15 @@ public class Main {
         gameStore.addGenreList(racing);
         GenreLinkedList horror = new GenreLinkedList("Horror",gameStore);
         gameStore.addGenreList(horror);
+    }
+
+    public static void starting() throws SQLException {
+        BinarySearchTree binarySearchTree = new BinarySearchTree();
+        GameStore gameStore = new GameStore();
+        createGenreLists(gameStore);
+        DatabaseConnect databaseConnect = new DatabaseConnect(gameStore, binarySearchTree);
+
+        new Sign(gameStore, binarySearchTree, databaseConnect);
+
     }
 }
