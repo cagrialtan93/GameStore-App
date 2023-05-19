@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -21,31 +22,34 @@ public class GameProfile {
     private JFrame jFrame = new JFrame();
     private JPanel jPanel = new JPanel();
     private JPanel jPanelButtons = new JPanel();
+    private JPanel jPanelSecond = new JPanel();
 
     public GameProfile(Game game, User user, DatabaseConnect databaseConnect) {
         jFrame.setLayout(new BorderLayout());
-        jPanel.setLayout(new GridLayout(5, 2));
+        jPanel.setLayout(new GridLayout(5, 1));
+        jPanelSecond.setLayout(new GridLayout(5,1));
+        jPanelSecond.setBorder(new EmptyBorder(0,10,0,0));
         jPanelButtons.setLayout(new FlowLayout());
 
         jPanel.add(jLabelTitle);
         getjLabelTitle.setText(game.getTitle());
-        jPanel.add(getjLabelTitle);
+        jPanelSecond.add(getjLabelTitle);
 
         jPanel.add(jLabelGenre);
         getjLabelGenre.setText(game.getGenre());
-        jPanel.add(getjLabelGenre);
+        jPanelSecond.add(getjLabelGenre);
 
         jPanel.add(jLabelReleaseYear);
         getjLabelReleaseYear.setText(String.valueOf(game.getReleaseYear()));
-        jPanel.add(getjLabelReleaseYear);
+        jPanelSecond.add(getjLabelReleaseYear);
 
         jPanel.add(jLabelPublisher);
         getjLabelPublisher.setText(game.getPublisher());
-        jPanel.add(getjLabelPublisher);
+        jPanelSecond.add(getjLabelPublisher);
 
         jPanel.add(jLabelPrice);
         getjLabelPrice.setText(String.valueOf(game.getPrice()) + " ₺");
-        jPanel.add(getjLabelPrice);
+        jPanelSecond.add(getjLabelPrice);
 
         jPanelButtons.add(jButtonBack);
         jButtonBack.addMouseListener(new MouseListener() {
@@ -108,10 +112,11 @@ public class GameProfile {
         });
         jPanelButtons.add(jButtonBuy);
 
-        jFrame.add(jPanel, BorderLayout.CENTER);
+        jFrame.add(jPanel, BorderLayout.WEST);
+        jFrame.add(jPanelSecond, BorderLayout.CENTER);
         jFrame.add(jPanelButtons, BorderLayout.SOUTH);
 
-        jFrame.setSize(250, 225);
+        jFrame.setSize(350, 225);
         jFrame.setLocationRelativeTo(null);
         jFrame.setVisible(true);
     }

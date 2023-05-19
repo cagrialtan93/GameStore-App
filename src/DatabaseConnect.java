@@ -45,7 +45,7 @@ public class DatabaseConnect {
             // Check if a matching record was found
             if (rs.next()) {
                 user = new User();
-                user = new User(rs.getInt("userid") ,rs.getString("username"), rs.getString("passoword"), rs.getString("email"));
+                user = new User(rs.getInt("userid"), rs.getString("username"), rs.getString("passoword"), rs.getString("email"));
             }
 
         } catch (SQLException e) {
@@ -54,7 +54,7 @@ public class DatabaseConnect {
         return user;  // Login credentials are valid
     }
 
-    public Boolean checkUsername(String username){
+    public Boolean checkUsername(String username) {
         Boolean isOk = null;
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
@@ -74,7 +74,8 @@ public class DatabaseConnect {
         }
         return isOk;
     }
-    public Boolean checkEmail(String email){
+
+    public Boolean checkEmail(String email) {
         Boolean isOk = null;
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
@@ -95,7 +96,7 @@ public class DatabaseConnect {
         return isOk;
     }
 
-    public User checkCredentials(String username, String password, String email){
+    public User checkCredentials(String username, String password, String email) {
         User user = null;
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
@@ -106,7 +107,7 @@ public class DatabaseConnect {
             // Check if a matching record was found
             if (rs.next()) {
                 user = new User();
-                user = new User(rs.getInt("userid") ,rs.getString("username"), rs.getString("passoword"), rs.getString("email"));
+                user = new User(rs.getInt("userid"), rs.getString("username"), rs.getString("passoword"), rs.getString("email"));
             }
 
         } catch (SQLException e) {
@@ -115,6 +116,7 @@ public class DatabaseConnect {
         return user;  // Login credentials are valid
 
     }
+
     public boolean createUser(User user) {
         Boolean isCreated = null;
         String sql = "insert into account(username, passoword, email) VALUES (?,?,?)";
@@ -130,18 +132,20 @@ public class DatabaseConnect {
         }
         return isCreated;
     }
+
     public BinarySearchTree getGames() throws SQLException {
         Connection conn = this.connect();
         Statement stmt = conn.createStatement();
         ResultSet rs = stmt.executeQuery("SELECT * FROM games_ ORDER BY title ASC");
 
         while (rs.next()) {
-            Game game = new Game(rs.getInt("gameid") ,rs.getDouble("price"), rs.getString("title"), rs.getInt("releaseYear"), rs.getString("genre"), rs.getString("publisher"));
+            Game game = new Game(rs.getInt("gameid"), rs.getDouble("price"), rs.getString("title"), rs.getInt("releaseYear"), rs.getString("genre"), rs.getString("publisher"));
             binarySearchTree.insertGame(game);
             gameStore.addGame(game);
         }
         return binarySearchTree;
     }
+
     public void addGame(Game game) throws SQLException {
         String sql = "insert into games(title, genre, price, publisher, releaseYear) VALUES (?,?,?,?,?)";
 
@@ -166,11 +170,12 @@ public class DatabaseConnect {
             System.out.println("We already have " + game.getTitle() + " in our database.");
         }
     }
-    public Boolean addGamesBought(User user, Game game){
+
+    public Boolean addGamesBought(User user, Game game) {
         Boolean haveGame = null;
         String sql = "insert into games_bought(userid, gamesid) VALUES (?,?)";
         try (Connection conn = this.connect(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            if (!checkGamesBoughtIfItsIn(user.getUserid(), game.getGameid())){
+            if (!checkGamesBoughtIfItsIn(user.getUserid(), game.getGameid())) {
                 pstmt.setInt(1, user.getUserid());
                 pstmt.setInt(2, game.getGameid());
                 pstmt.executeUpdate();
@@ -183,6 +188,7 @@ public class DatabaseConnect {
         }
         return haveGame;
     }
+
     public Game checkIfInDatabase(String gameName) throws SQLException {
         Game game = null;
         try (Connection conn = DriverManager.getConnection(url);
@@ -193,14 +199,15 @@ public class DatabaseConnect {
 
             // Check if a matching record was found
             if (rs.next()) {
-                game = new Game(rs.getInt("gameid") ,rs.getDouble("price"), rs.getString("title"), rs.getInt("releaseYear"), rs.getString("genre"),rs.getString("publisher"));
+                game = new Game(rs.getInt("gameid"), rs.getDouble("price"), rs.getString("title"), rs.getInt("releaseYear"), rs.getString("genre"), rs.getString("publisher"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return game;
     }
-    public boolean checkGamesBoughtIfItsIn(int userid, int gameid){
+
+    public boolean checkGamesBoughtIfItsIn(int userid, int gameid) {
         Boolean result = false;
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
@@ -219,6 +226,7 @@ public class DatabaseConnect {
         }
         return result;
     }
+
     public DefaultListModel<String> getMyGames(User user) throws SQLException {
         DefaultListModel<String> defaultListModel = new DefaultListModel<>();
         Connection conn = this.connect();
@@ -226,10 +234,26 @@ public class DatabaseConnect {
 
         ResultSet rs = stmt.executeQuery("SELECT games.title from account,games, games_bought where account.userid = games_bought.userid and games.gameid = games_bought.gamesid and account.userid = '" + user.getUserid() + "' ORDER BY games.title ASC");
 
-        while (rs.next()){
+        while (rs.next()) {
             defaultListModel.addElement(rs.getString("title"));
         }
 
         return defaultListModel;
+    }
+
+    public boolean changePassword(String username, String password) {
+        Boolean isChanged = null;
+
+        String query = "UPDATE account SET passoword = '" + password + "' WHERE username = '" + username + "'";
+
+        try (Connection conn = this.connect(); PreparedStatement pstmt = conn.prepareStatement(query)) {
+            pstmt.executeUpdate();
+            isChanged = true;
+        } catch (SQLException e) {
+            isChanged = false;
+            System.out.println("Something is wrong");
+        }
+        return isChanged;
+
     }
 }

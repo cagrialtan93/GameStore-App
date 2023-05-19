@@ -79,8 +79,7 @@ public class SearchBox extends JFrame {
                     defaultListModel = binarySearchTree.inOrder(binarySearchTree.getRoot(), defaultListModel);
                 }
                 setSize(375, 200);
-                jScrollPane.show();
-            }
+                jScrollPane.show();            }
 
             @Override
             public void mousePressed(MouseEvent e) {

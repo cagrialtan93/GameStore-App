@@ -103,6 +103,32 @@ public class Profile
 
             }
         });
+        jButtonChangePassword.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                new PasswordChange(databaseConnect, user);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
 
         jPanelCenter.add(jLabelMyGames, BorderLayout.NORTH);
         jPanelCenter.add(jScrollPane, BorderLayout.CENTER);
@@ -114,6 +140,8 @@ public class Profile
         jFrame.add(jPanelCenter, BorderLayout.CENTER);
         jFrame.add(jPanelBottom, BorderLayout.SOUTH);
 
+        jButtonChangeUsername.hide();
+        jButtonChangeEmail.hide();
         jFrame.setSize(450,400);
         jFrame.setLocationRelativeTo(null);
         jFrame.setVisible(true);
