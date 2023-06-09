@@ -5,7 +5,7 @@ import java.awt.event.MouseListener;
 import java.sql.SQLException;
 
 public class SignIn {
-    JFrame jFrame = new JFrame();
+    JFrame jFrame = new JFrame("Sign In");
     JLabel nameLabel = new JLabel("Username");
     JTextField usernameTextField = new JTextField();
     JLabel passwordLabel = new JLabel("Password");

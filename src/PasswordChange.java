@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class PasswordChange {
-    JFrame jFrame = new JFrame();
+    JFrame jFrame = new JFrame("Change Password");
     JLabel jLabelPassword = new JLabel("New password");
     JLabel jLabelRePassword = new JLabel("Confirm new password");
     JPasswordField jTextFieldPassword = new JPasswordField();

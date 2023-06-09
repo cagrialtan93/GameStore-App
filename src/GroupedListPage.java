@@ -14,7 +14,7 @@ public class GroupedListPage {
     private DefaultListModel<String> stringDefaultListModel = new DefaultListModel<>();
     private JList<String> jList = new JList<>(stringDefaultListModel);
     private JPanel jPanel = new JPanel();
-    private JFrame frame = new JFrame();
+    private JFrame frame = new JFrame("Grouped by Genre");
     private JButton jButtonBack = new JButton("Back");
     private JButton jButtonQuit = new JButton("Quit");
     private JPanel jPanelForButtons = new JPanel(new FlowLayout());
@@ -93,12 +93,15 @@ public class GroupedListPage {
                     String selectedItem = jList.getSelectedValue();
                     try {
                         game = databaseConnect.checkIfInDatabase(selectedItem);
-                        new GameProfile(game, user, databaseConnect);
+                        if (game != null){
+                            new GameProfile(game, user, databaseConnect);
+                        } else {
+
+                        }
                     } catch (SQLException ex) {
                         throw new RuntimeException(ex);
                     }
                 }
-
             }
         });
 
@@ -158,8 +161,6 @@ public class GroupedListPage {
                 }
             }
         });
-
-        // TODO set the default selection as 'Select genre'.
 
         frame.add(jPanel);
         frame.show();

@@ -24,7 +24,6 @@ public class DatabaseConnect {
     }
 
     private Connection connect() {
-
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);
@@ -136,7 +135,7 @@ public class DatabaseConnect {
     public BinarySearchTree getGames() throws SQLException {
         Connection conn = this.connect();
         Statement stmt = conn.createStatement();
-        ResultSet rs = stmt.executeQuery("SELECT * FROM games_ ORDER BY title ASC");
+        ResultSet rs = stmt.executeQuery("SELECT * FROM games_");
 
         while (rs.next()) {
             Game game = new Game(rs.getInt("gameid"), rs.getDouble("price"), rs.getString("title"), rs.getInt("releaseYear"), rs.getString("genre"), rs.getString("publisher"));

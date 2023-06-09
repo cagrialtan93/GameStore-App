@@ -19,7 +19,7 @@ public class GameProfile {
     private JButton jButtonBack = new JButton("Back");
     private JButton jButtonBuy = new JButton("Buy");
 
-    private JFrame jFrame = new JFrame();
+    private JFrame jFrame = new JFrame("Game Profile");
     private JPanel jPanel = new JPanel();
     private JPanel jPanelButtons = new JPanel();
     private JPanel jPanelSecond = new JPanel();
@@ -51,7 +51,7 @@ public class GameProfile {
         if (game.getPrice() == 0){
             getjLabelPrice.setText("Free to Play");
         } else {
-            getjLabelPrice.setText(String.valueOf(game.getPrice()));
+            getjLabelPrice.setText(String.valueOf(game.getPrice()) + " ₺");
         }
         jPanelSecond.add(getjLabelPrice);
 

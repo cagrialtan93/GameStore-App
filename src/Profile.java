@@ -7,7 +7,7 @@ import java.sql.SQLException;
 
 public class Profile
 {
-    private JFrame jFrame = new JFrame();
+    private JFrame jFrame = new JFrame("My Profile");
     private JLabel jLabelUsername = new JLabel("Username");
     private JButton jButtonChangeUsername = new JButton("Change");
     private JLabel getjLabelUsername = new JLabel();

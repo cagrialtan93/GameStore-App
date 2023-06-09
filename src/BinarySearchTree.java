@@ -2,6 +2,9 @@ import com.sun.source.tree.Tree;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class BinarySearchTree {
     private TreeNode root;
@@ -45,22 +48,21 @@ public class BinarySearchTree {
         return search(root.getRightChild(), gameName);
     }
 
+    /*
     public ArrayList<String> returnSimilars(TreeNode root, String string, ArrayList<String> treeNodes) {
         if (root != null) {
-            // If the node's value contains the search key, add it to the list
-            if (root.getGame().getTitle().contains(string)) {
-                treeNodes.add(root.getGame().getTitle());
-            }
+            String[] array = (root.getGame().getTitle().toLowerCase().split(" "));
+            List<String> arrayList = Arrays.asList(array);
 
-            // If the node's value is lexicographically less than the search key,
-            // search the right subtree (which contains larger values)
+
             if (root.getGame().getTitle().compareTo(string) < 0) {
                 returnSimilars(root.getRightChild(), string, treeNodes);
             }
 
-            // If the node's value is lexicographically greater than or equal to the search key,
-            // search the left subtree (which contains smaller values) and the right subtree
-            // (since there may be more matches in the larger values)
+            if (arrayList.contains(string.toLowerCase())) {
+                treeNodes.add(root.getGame().getTitle());
+            }
+
             if (root.getGame().getTitle().compareTo(string) >= 0) {
                 returnSimilars(root.getLeftChild(), string, treeNodes);
                 returnSimilars(root.getRightChild(), string, treeNodes);
@@ -69,8 +71,47 @@ public class BinarySearchTree {
         return treeNodes;
     }
 
+     */
+    public ArrayList<String> returnSimilars(TreeNode root, String string, ArrayList<String> treeNodes) {
+        if (root != null) {
+            String[] array = (root.getGame().getTitle().toLowerCase().split(" "));
+            List<String> arrayList = Arrays.asList(array);
+
+            returnSimilars(root.getLeftChild(), string, treeNodes);
+
+            if (root.getGame().getTitle().compareTo(string) >= 0) {
+                returnSimilars(root.getLeftChild(), string, treeNodes);
+            }
+
+            if (root.getGame().getTitle().toLowerCase().contains(string.toLowerCase())){
+                if (treeNodes.contains(root.getGame().getTitle())){
+
+                } else {
+                    treeNodes.add(root.getGame().getTitle());
+                }
+            }
+
+            if (arrayList.contains(string.toLowerCase())) {
+                if (treeNodes.contains(root.getGame().getTitle())) {
+
+                } else {
+                    treeNodes.add(root.getGame().getTitle());
+                }
+            }
+
+            if (root.getGame().getTitle().compareTo(string) >= 0) {
+                returnSimilars(root.getRightChild(), string, treeNodes);
+            }
+
+            returnSimilars(root.getRightChild(), string, treeNodes);
+        }
+        return treeNodes;
+    }
+
+
     public DefaultListModel<String> addItemsToListModelFromArrayList(DefaultListModel<String> defaultListModel, ArrayList<String> arrayList) {
         defaultListModel.clear();
+        Collections.sort(arrayList);
         defaultListModel.addAll(arrayList);
         return defaultListModel;
     }
@@ -107,11 +148,11 @@ public class BinarySearchTree {
     }
 
     public void inOrder(TreeNode treeNode) {
-        if (root == null) {
+        if (treeNode == null) {
             return;
         }
-        inOrder(root.getLeftChild());
-        System.out.print(root.getGame().getTitle() + " ");
-        inOrder(root.getRightChild());
+        inOrder(treeNode.getLeftChild());
+        System.out.println(treeNode.getGame().getTitle());
+        inOrder(treeNode.getRightChild());
     }
 }

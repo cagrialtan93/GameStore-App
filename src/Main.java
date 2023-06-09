@@ -11,27 +11,26 @@ public class Main {
         gameStore.addGenreList(genreLinkedList);
         GenreLinkedList action = new GenreLinkedList("Action",gameStore);
         gameStore.addGenreList(action);
+        GenreLinkedList horror = new GenreLinkedList("Horror",gameStore);
+        gameStore.addGenreList(horror);
+        GenreLinkedList racing = new GenreLinkedList("Racing",gameStore);
+        gameStore.addGenreList(racing);
         GenreLinkedList shooter = new GenreLinkedList("Shooter",gameStore);
         gameStore.addGenreList(shooter);
-        GenreLinkedList strategy = new GenreLinkedList("Strategy",gameStore);
-        gameStore.addGenreList(strategy);
         GenreLinkedList simulation = new GenreLinkedList("Simulation",gameStore);
         gameStore.addGenreList(simulation);
         GenreLinkedList sports = new GenreLinkedList("Sports",gameStore);
         gameStore.addGenreList(sports);
-        GenreLinkedList racing = new GenreLinkedList("Racing",gameStore);
-        gameStore.addGenreList(racing);
-        GenreLinkedList horror = new GenreLinkedList("Horror",gameStore);
-        gameStore.addGenreList(horror);
+        GenreLinkedList strategy = new GenreLinkedList("Strategy",gameStore);
+        gameStore.addGenreList(strategy);
+        GenreLinkedList survival = new GenreLinkedList("Survival",gameStore);
+        gameStore.addGenreList(survival);
     }
 
     public static void starting() throws SQLException {
-        BinarySearchTree binarySearchTree = new BinarySearchTree();
         GameStore gameStore = new GameStore();
         createGenreLists(gameStore);
-        DatabaseConnect databaseConnect = new DatabaseConnect(gameStore, binarySearchTree);
-
-        new Sign(gameStore, binarySearchTree, databaseConnect);
-
+        DatabaseConnect databaseConnect = new DatabaseConnect(gameStore, gameStore.getBinarySearchTree());
+        new Sign(gameStore, gameStore.getBinarySearchTree(), databaseConnect);
     }
 }

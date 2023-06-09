@@ -67,7 +67,6 @@ public class GenreLinkedList {
     }
 
     public String[] linkedListToArray(){
-
         Game current = head;
         for (int i = 0; i < size; i++) {
             if (current != null){

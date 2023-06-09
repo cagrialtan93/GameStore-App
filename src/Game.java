@@ -5,6 +5,7 @@ public class Game {
     private int releaseYear;
     private String genre;
     private Game next;
+    private Game previous;
     private String publisher;
 
     public Game(int gameid, double price, String title, int releaseYear, String genre, String publisher) {
@@ -79,5 +80,13 @@ public class Game {
 
     public void setGameid(int gameid) {
         this.gameid = gameid;
+    }
+
+    public Game getPrevious() {
+        return previous;
+    }
+
+    public void setPrevious(Game previous) {
+        this.previous = previous;
     }
 }

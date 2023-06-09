@@ -7,7 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class SignUp extends JFrame {
-    JFrame jFrame = new JFrame();
+    JFrame jFrame = new JFrame("Sign Up");
     JPanel jPanel = new JPanel();
     JLabel jLabelUsername = new JLabel("Username");
     JTextField jTextFieldUsername = new JTextField();
